@@ -1,24 +1,17 @@
-import React, { useState } from "react"
+import React, { useMemo, useState } from "react"
 import { BottomNavigation } from "react-native-paper"
-import Fetch from "./Fetch"
-import Interval from "./Interval"
-import LifeCycle from "./LifeCycle"
-import Timer from "./Timer"
+import Fetch from "../screens/Fetch"
+import Interval from "../screens/Interval"
+import LifeCycle from "../screens/LifeCycle"
+import Timer from "../screens/Timer"
+import Home from "./Home"
 
 export default function MainNavigator() {
     const [index, setIndex] = useState<number>(0)
-    const [routes] = useState([
-        {key: 'life', title: 'LifeCycle', icon: 'page-layout-header-footer'},
-        {key: 'timer', title: 'Timer', icon: 'clock-time-four'},
-        {key: 'interval', title: 'Interval', icon: 'timeline'},
-        {key: 'fetch', title: 'Fetch', icon: 'history'}
-    ])
+    const routes = useMemo(() => [{key: 'home', title: 'Home', icon: 'home'}], [])
 
     const renderScene = BottomNavigation.SceneMap({
-        life: LifeCycle,
-        timer: Timer,
-        interval: Interval,
-        fetch: Fetch,
+        home: Home
     })
 
     return (
