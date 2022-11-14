@@ -3,14 +3,11 @@ import { StyleSheet, SafeAreaView, Text, Platform, View, ActivityIndicator, Butt
 import * as D from '../data'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Colors } from "react-native-paper";
+import { useTimeout, useToggle } from "../hooks";
 
 export default function Timer() {
-    const [loading, setLoading] = useState(true)
-    const toggleLoading = useCallback(() => setLoading((loading) => !loading), [])
-    useEffect(() => {
-        const id = setTimeout(() => setLoading(false), 300)
-        return () => clearTimeout(id)
-    }, [loading])
+    const [loading, toggleLoading] = useToggle(true)
+    useTimeout(() => loading && toggleLoading(), 3000, [loading])
 
     return (
         <View style={[styles.view]}>
